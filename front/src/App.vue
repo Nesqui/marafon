@@ -13,28 +13,21 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-
-const cardData = computed(() => data.value.map(el => ({
-  distance: el.distance,
-  heartRate: el.heart_rate,
-  id: el.id,
-  speed: el.speed,
-  stress: el.stress,
-}))
-)
+const cardData = computed(() => data.value.map(el => ({ distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
 const boot = ref(true)
 const PER_PAGE = 23
 const currentPage = ref(0)
-const isNextPage = ref(null)
+const nextPageData = ref(null)
+const isNextPage = ref(false)
 const isInterval = ref(false)
 const INTERVAL_TIME = 120000
 
 setInterval(async () => {
   if (!isInterval.value) return
 
-  if (!isNextPage.value)
+  if (!isNextPage)
     currentPage.value = 0
   else
     await updateRunners()
@@ -43,18 +36,26 @@ setInterval(async () => {
 
 const updateRunners = async () => {
   loading.value = true
-  const res = await api.getAllParticipantMetrics.getAllParticipantMetricsList({
-    query: {
-      limit: PER_PAGE,
-      offset: currentPage.value * PER_PAGE
-    }
-  })
-  await new Promise((resolve) => {
-    setTimeout(() => resolve(true), 2700)
-  })
-  currentPage.value++
-  isNextPage.value = res.data.next
+  let res
+  if (!nextPageData.value) {
+    res = await api.getAllParticipantMetrics.getAllParticipantMetricsList({
+      query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+    })
+  } else {
+    res = nextPageData.value
+    nextPageData.value = null
+  }
+
   data.value = res.data.results
+  isNextPage.value = !!res.data.next
+
+  api.getAllParticipantMetrics.getAllParticipantMetricsList({
+    query: { limit: PER_PAGE, offset: (currentPage.value + 1) * PER_PAGE }
+  })
+    .then((runnerRes) => { nextPageData.value = runnerRes })
+    .catch(() => { nextPageData.value = null })
+  currentPage.value++
+
   nextTick(() => loading.value = false)
 }
 
@@ -116,7 +117,7 @@ onMounted(async () => {
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.25s ease-out;
+  transition: all 0.65s ease-in;
 }
 
 .slide-up-enter-from {
@@ -124,6 +125,6 @@ onMounted(async () => {
 }
 
 .slide-up-leave-to {
-  opacity: 0;
+  opacity: 90;
 }
 </style>
