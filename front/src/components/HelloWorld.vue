@@ -1,38 +1,46 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import SberCard from './SberCard.vue'
 
-defineProps<{ msg: string }>()
-
-const count = ref(0)
+const test = ref({
+  speed: 1,
+  path: 1,
+  pulse: 3,
+  stress: 14,
+})
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
 
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+  <div class="top-menu">
+    <h3>Названия дашборда</h3>
+    <img src="/logos.svg" />
+  </div>
+  <div class="card-container">
+
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
   </div>
 
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
 
-<style scoped>
-.read-the-docs {
-  color: #888;
+<style scoped lang="scss">
+.top-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-container {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  gap: 16px
 }
 </style>
