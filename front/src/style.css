@@ -1,8 +1,37 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@font-face {
+  font-family: SB Sans Display;
+  src: url("/SBSansDisplay-Regular.otf") format("opentype");
+}
 
+@font-face {
+  font-family: SB Sans Display;
+  font-weight: 500;
+  src: url("/SBSansDisplay-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SB Sans Display;
+  font-weight: 600;
+  src: url("/SBSansDisplay-Bold.otf") format("opentype");
+}
+
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 400;
+}
+
+:root {
+  font-family: "SB Sans Display";
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
 
@@ -28,14 +57,25 @@ body {
   padding: 24px 80px 16px 80px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1050px) {
+  h1 {
+    font-size: 34px;
+    font-weight: 500;
+  }
+
   body {
-    padding: 40px 16px 28px 40px;
+    padding: 40px 16px 28px 16px;
   }
 }
 
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+
   body {
     padding: 40px 16px;
   }

@@ -43,10 +43,14 @@ const props = defineProps({
 }
 
 @media (max-width: 768px) {
-  .card-container {}
+  .card-container {
+    gap: 12px;
+  }
 }
 
-@media (max-width: 375px) {
-  .card-container {}
+@media (max-width: 450px) {
+  .card-container {
+    gap: 12px;
+  }
 }
 </style>

@@ -64,12 +64,9 @@ const props = defineProps({
 
   h3 {
     text-align: center;
-    font-family: "SB Sans Display";
     font-size: 40px;
-    font-style: normal;
     font-weight: 500;
     line-height: 52px;
-    margin: 0;
     padding-bottom: 12px;
     background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
     background-clip: text;
@@ -77,46 +74,126 @@ const props = defineProps({
     -webkit-text-fill-color: transparent;
   }
 
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .stats__item {
-    width: 100%;
-    padding-bottom: 10px;
+    // width: 100%;
     display: flex;
     justify-content: space-between;
-    text-align: left;
     gap: 8px;
+    color: #363636;
+    line-height: 22px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
 
     .stats_title {
-      span {
-        width: 100px;
-      }
+      // span {
+      //   width: 100px;
+      // }
 
+      width: 100%;
       align-items: center;
       display: flex;
       gap: 8px;
-      color: #363636;
-      font-family: "SB Sans Display";
       font-size: 16px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 22px;
     }
 
     .stats_value {
       .bold {
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
       }
 
       display: flex;
-      width: 104px;
+      width: 100%;
       align-items: baseline;
       gap: 4px;
-      color: #363636;
-      font-family: "SB Sans Display";
-      font-style: normal;
-      line-height: 22px;
     }
 
+  }
+}
+
+@media (max-width: 768px) {
+  .card-wrapper {
+    padding: 12px;
+    width: calc(237px - 24px);
+
+    h3 {
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 40px;
+      /* 125% */
+    }
+
+    .stats__item {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+
+
+      .stats_title {
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      .stats_value {
+        .bold {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 18px;
+        }
+
+        font-size: 14px;
+        line-height: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .card-wrapper {
+    padding: 12px;
+    width: 100%;
+
+    h3 {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 40px;
+    }
+
+    .stats__item {
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+
+      .stats_title {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      .stats_value {
+        .bold {
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 24px
+        }
+
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
   }
 }
 </style>

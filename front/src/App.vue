@@ -5,18 +5,15 @@ import Loader from './components/Loader.vue'
 import { Api, Display } from "./hooks/"
 
 const api = new Api()
-const width = ref(window.innerWidth);
+const width = ref(window.screen.width);
 
 const updateSize = () => {
-  width.value = window.innerWidth;
+  width.value = window.screen.width;
 }
 
-const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 768 ? 'Tablet' : 'Mobile')
-
-onMounted(() => {
-  window.addEventListener('resize', updateSize);
-})
+const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
+
 const cardData = computed(() => data.value.map(el => ({
   distance: el.distance,
   heartRate: el.heart_rate,
@@ -32,7 +29,7 @@ const PER_PAGE = 23
 const currentPage = ref(0)
 const isNextPage = ref(null)
 const isInterval = ref(false)
-const INTERVAL_TIME = 12000
+const INTERVAL_TIME = 120000
 
 setInterval(async () => {
   if (!isInterval.value) return
@@ -62,6 +59,8 @@ const updateRunners = async () => {
 }
 
 onMounted(async () => {
+  window.addEventListener('resize', updateSize);
+
   loading.value = true
   await updateRunners()
 
@@ -76,7 +75,7 @@ onMounted(async () => {
 
 <template>
   <div class="top-menu">
-    <h3>Названия дашборда</h3>
+    <h1>Названия дашборда</h1>
     <img v-if="display === 'Mobile'" src="/logos-mobile.svg" />
     <img v-else src="/logos.svg" />
   </div>
@@ -91,19 +90,27 @@ onMounted(async () => {
 .top-menu {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  color: #363853;
+  margin-bottom: 32px;
+  gap: 16px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1050px) {
   .top-menu {
+    align-items: start;
     justify-content: unset;
     flex-direction: column-reverse;
+    margin-bottom: 16px;
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   .top-menu {
     flex-direction: column-reverse;
     justify-content: unset;
+    gap: 24px;
+    margin-bottom: 24px;
   }
 }
 
