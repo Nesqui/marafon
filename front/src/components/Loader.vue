@@ -40,12 +40,12 @@ const spinnerStyle = computed(() => {
 
 <style>
 .v-spinner {
-  /*	  font-size: 10px; 
-
-    width: 60px;
-    height: 40px;*/
-  /*margin: 25px auto;*/
-  text-align: center;
+  height: 72vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 50%;
 }
 
 .v-spinner .v-clip {

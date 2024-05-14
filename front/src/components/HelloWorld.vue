@@ -7,7 +7,9 @@ import { Display } from '../hooks';
 
 const props = defineProps({
   cardData: { required: true },
-  display: { type: String as PropType<Display>, required: true }
+  display: { type: String as PropType<Display>, required: true },
+  currentPage: {},
+  totalPages: {},
 })
 
 </script>
