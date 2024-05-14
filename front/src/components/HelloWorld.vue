@@ -11,27 +11,26 @@ const test = ref({
 </script>
 
 <template>
-  
 
-    
-    <div class="top-menu">
-      <h3>Названия дашборда</h3>
-      <img src="/logos.svg" />
-    </div>
-    <div class="card-container">
-      
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-      <SberCard :runner="test" :place="4" />
-    </div>
-    
+
+  <div class="top-menu">
+    <h3>Названия дашборда</h3>
+    <img src="/logos.svg" />
+  </div>
+  <div class="card-wrapper">
+
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+    <SberCard :runner="test" :place="4" />
+  </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -40,8 +39,7 @@ const test = ref({
   justify-content: space-between;
 }
 
-.card-container {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+.card-wrapper {
   display: grid;
   gap: 16px
 }
