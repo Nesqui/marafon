@@ -61,7 +61,7 @@ const props = defineProps({
 <style scoped lang="scss">
 .card-wrapper {
   padding: 16px;
-  width: 280px;
+  width: calc(280px - 32px);
   border-radius: 24px;
   background: #FFF;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
@@ -75,6 +75,10 @@ const props = defineProps({
     line-height: 52px;
     margin: 0;
     padding-bottom: 12px;
+    background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .stats__item {
@@ -109,7 +113,7 @@ const props = defineProps({
 
       display: flex;
       width: 104px;
-      align-items: center;
+      align-items: baseline;
       gap: 4px;
       color: #363636;
       font-family: "SB Sans Display";
