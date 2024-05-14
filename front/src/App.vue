@@ -52,9 +52,9 @@ const updateRunners = async () => {
       offset: currentPage.value * PER_PAGE
     }
   })
-  await new Promise((resolve) => {
-    setTimeout(() => resolve(true), 2700)
-  })
+  // await new Promise((resolve) => {
+  //   setTimeout(() => resolve(true), 2700)
+  // })
   currentPage.value++
   isNextPage.value = res.data.next
   data.value = res.data.results

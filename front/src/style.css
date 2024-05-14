@@ -24,6 +24,7 @@ a:hover {
 
 body {
   margin: 0;
+  overflow-y: hidden;
   background: var(--color-Cool-Gray-CoolGray100, #F2F5F8);
   padding: 24px 80px 16px 80px;
 }
