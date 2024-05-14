@@ -5,7 +5,12 @@ import { Api } from "./hooks/"
 const api = new Api()
 
 onMounted(async () => {
-  const res = await api.getAllParticipantMetrics.getAllParticipantMetricsList()
+  const res = await api.getAllParticipantMetrics.getAllParticipantMetricsList({
+   query: {
+    limit: 5,
+    offset: 0
+   }
+  })
   console.log("🚀 ~ onMounted ~ res:", res)
 })
 

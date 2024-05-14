@@ -220,7 +220,7 @@ export class HttpClient<SecurityDataType = unknown> {
     private baseApiParams: RequestParams = {
         credentials: "same-origin",
         headers: {
-            Authorizations: `API_KEY ${import.meta.env.VITE_API_KEY}`
+            Authorization: `API_KEY ${import.meta.env.VITE_API_KEY}`
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",

@@ -43,4 +43,22 @@ const test = ref({
   display: grid;
   gap: 16px
 }
+
+@media (max-width: 1920px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 375px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
