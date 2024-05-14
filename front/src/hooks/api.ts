@@ -1,3 +1,5 @@
+if (!import.meta.env.VITE_API_KEY) throw new Error('VITE_API_KEY should be set inside .env')
+
 export interface Participant {
     /** ID */
     id?: number;
@@ -217,7 +219,9 @@ export class HttpClient<SecurityDataType = unknown> {
 
     private baseApiParams: RequestParams = {
         credentials: "same-origin",
-        headers: {},
+        headers: {
+            Authorizations: `API_KEY ${import.meta.env.VITE_API_KEY}`
+        },
         redirect: "follow",
         referrerPolicy: "no-referrer",
     };
