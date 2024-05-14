@@ -58,6 +58,12 @@ body {
   padding: 24px 80px 16px 80px;
 }
 
+@media (max-width: 1920px) {
+  body {
+    overflow-y: auto;
+  }
+}
+
 @media (max-width: 1050px) {
   h1 {
     font-size: 34px;
