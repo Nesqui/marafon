@@ -17,7 +17,7 @@ const test = ref({
     <h3>Названия дашборда</h3>
     <img src="/logos.svg" />
   </div>
-  <div class="card-wrapper">
+  <div class="card-container">
 
     <SberCard :runner="test" :place="4" />
     <SberCard :runner="test" :place="4" />
@@ -39,7 +39,7 @@ const test = ref({
   justify-content: space-between;
 }
 
-.card-wrapper {
+.card-container {
   display: grid;
   gap: 16px
 }
