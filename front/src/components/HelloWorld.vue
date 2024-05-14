@@ -3,7 +3,9 @@ import { ref } from 'vue'
 import SberCard from './SberCard.vue'
 
 const props = defineProps({
-  cardData: { required: true }
+  cardData: { required: true },
+  currentPage: {},
+  totalPages: {},
 })
 </script>
 
