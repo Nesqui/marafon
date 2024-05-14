@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+// import { computed, onMounted, ref } from 'vue'
+import { PropType } from 'vue';
 import SberCard from './SberCard.vue'
+import { Display } from '../hooks';
+
 
 const props = defineProps({
-  cardData: { required: true }
+  cardData: { required: true },
+  display: { type: String as PropType<Display>, required: true }
 })
+
 </script>
 
 <template>
   <div class="card-container">
-
     <SberCard v-for="(item, index) in cardData" :key="index" :runner="item" />
-    <div class="qr-code">
+    <div v-if="display === 'Desktop'" class="qr-code">
       <img src="/qr.png" />
     </div>
   </div>
@@ -19,13 +23,14 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .card-container {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 
   .qr-code {
-    grid-column: 6;
-    align-items: center;
+    margin-left: auto;
     display: flex;
+    align-items: center;
     justify-content: center;
     padding: 16px;
     width: calc(280px - 32px);
@@ -35,22 +40,11 @@ const props = defineProps({
   }
 }
 
-@media (max-width: 1920px) {
-  .card-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-}
-
 @media (max-width: 768px) {
-  .card-container {
-    grid-template-columns: 1fr 1fr 1fr;
-
-  }
+  .card-container {}
 }
 
 @media (max-width: 375px) {
-  .card-container {
-    grid-template-columns: 1fr;
-  }
+  .card-container {}
 }
 </style>
