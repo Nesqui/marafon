@@ -22,7 +22,7 @@ const currentPage = ref(0)
 const nextPageData = ref(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
-const INTERVAL_TIME = 120000
+const INTERVAL_TIME = 12000
 
 setInterval(async () => {
   if (!isInterval.value) return

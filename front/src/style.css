@@ -58,7 +58,7 @@ body {
   padding: 24px 80px 16px 80px;
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 1910px) {
   body {
     overflow-y: auto;
   }
