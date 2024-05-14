@@ -6,24 +6,20 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  place: {
-    type: Number,
-    required: true
-  }
 })
 
 </script>
 
 <template>
   <div class="card-wrapper">
-    <h3>{{ place }}</h3>
+    <h3>{{ runner.id }}</h3>
     <div class="stats">
       <div class="stats__item">
         <div class="stats_title">
           <img src="/pulse.svg" /><span>Пульс</span>
         </div>
         <div class="stats_value">
-          <span class="bold">{{ runner.pulse
+          <span class="bold">{{ runner.heartRate.toFixed(1)
             }}</span><span>уд/мин</span>
         </div>
       </div>
@@ -32,7 +28,7 @@ const props = defineProps({
           <img src="/stress.svg" /><span>Стресс</span>
         </div>
         <div class="stats_value">
-          <span class="bold">{{ runner.stress
+          <span class="bold">{{ runner.stress.toFixed(2)
             }}</span><span></span>
         </div>
       </div>
@@ -41,7 +37,7 @@ const props = defineProps({
           <img src="/speed.svg" /><span>Скорость</span>
         </div>
         <div class="stats_value">
-          <span class="bold">{{ runner.speed
+          <span class="bold">{{ runner.speed.toFixed(1)
             }}</span><span>км/ч</span>
         </div>
       </div>
@@ -50,7 +46,7 @@ const props = defineProps({
           <img src="/path.svg" /><span>Дистанция</span>
         </div>
         <div class="stats_value">
-          <span class="bold">{{ runner.pulse
+          <span class="bold">{{ runner.distance.toFixed(1)
             }}</span><span>км</span>
         </div>
       </div>

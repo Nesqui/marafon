@@ -2,46 +2,37 @@
 import { ref } from 'vue'
 import SberCard from './SberCard.vue'
 
-const test = ref({
-  speed: 1,
-  path: 1,
-  pulse: 3,
-  stress: 14,
+const props = defineProps({
+  cardData: { required: true }
 })
 </script>
 
 <template>
-
-
-  <div class="top-menu">
-    <h3>Названия дашборда</h3>
-    <img src="/logos.svg" />
-  </div>
   <div class="card-container">
 
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
-    <SberCard :runner="test" :place="4" />
+    <SberCard v-for="(item, index) in cardData" :key="index" :runner="item" />
+    <div class="qr-code">
+      <img src="/qr.png" />
+    </div>
   </div>
-
 </template>
 
 <style scoped lang="scss">
-.top-menu {
-  display: flex;
-  justify-content: space-between;
-}
-
 .card-container {
   display: grid;
-  gap: 16px
+  gap: 16px;
+
+  .qr-code {
+    grid-column: 6;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    width: calc(280px - 32px);
+    border-radius: 24px;
+    background: #FFF;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+  }
 }
 
 @media (max-width: 1920px) {
@@ -53,6 +44,7 @@ const test = ref({
 @media (max-width: 768px) {
   .card-container {
     grid-template-columns: 1fr 1fr 1fr;
+
   }
 }
 
