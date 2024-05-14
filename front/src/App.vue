@@ -21,7 +21,7 @@ onMounted(async () => {
   loading.value = true
   const res = await api.getAllParticipantMetrics.getAllParticipantMetricsList({
     query: {
-      limit: 25,
+      limit: 22,
       offset: 0
     }
   })
