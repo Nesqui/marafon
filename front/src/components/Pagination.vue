@@ -5,7 +5,7 @@ const props = defineProps(['page', 'pages'])
 const width = computed(() => {
     if (props.pages === 0) return '0%'
     if (props.page === props.pages) return '100%'
-    const result  = (props.page/props.pages * 100).toFixed(0)
+    const result = (props.page / props.pages * 100).toFixed(0)
     if (+result > 100) return '100%'
     return `${result}%`
 })
@@ -13,8 +13,8 @@ const width = computed(() => {
 
 <template>
     <div class="pagination">
-        <div :class="{ active: page === 0 }" class="pagination-left"></div>
-        <div :class="{ active: page !== 0 && page !== pages }" class="pagination-center">
+        <div :class="{ active: page === 1 }" class="pagination-left"></div>
+        <div class="active pagination-center">
             <div class="bar"></div>
         </div>
         <div :class="{ active: page === pages }" class="pagination-right"></div>
