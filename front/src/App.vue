@@ -39,9 +39,9 @@ const updateRunners = async () => {
   loading.value = true
   let res
   if (!nextPageData.value) {
-    res = await api.getAllParticipantMetrics.getAllParticipantMetricsList({
-      query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
-    })
+    res = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
+    query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+  })
   } else {
     res = nextPageData.value
     nextPageData.value = null
@@ -50,8 +50,8 @@ const updateRunners = async () => {
   data.value = res.data.results
   isNextPage.value = !!res.data.next
 
-  api.getAllParticipantMetrics.getAllParticipantMetricsList({
-    query: { limit: PER_PAGE, offset: (currentPage.value + 1) * PER_PAGE }
+  api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
+    query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
   })
     .then((runnerRes) => { nextPageData.value = runnerRes })
     .catch(() => { nextPageData.value = null })
@@ -64,13 +64,13 @@ onMounted(async () => {
   window.addEventListener('resize', updateSize);
 
   loading.value = true
+  let gres = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
+    query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+  })
+  console.log("🚀 ~ gres:", gres)
   await updateRunners()
 
 
-  let gres = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
-    // query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
-  })
-  console.log("🚀 ~ gres:", gres)
 
   isInterval.value = true
   nextTick(() => {
