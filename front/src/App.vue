@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed, nextTick } from 'vue';
-import HelloWorld from './components/HelloWorld.vue'
+import RunnerCards from './components/RunnerCards.vue'
 import Loader from './components/Loader.vue'
 import { Api, Display } from "./hooks/"
 
@@ -83,7 +83,7 @@ onMounted(async () => {
 
   <Loader v-if="boot" />
   <Transition name="slide-up">
-    <HelloWorld :display="display" v-if="!loading" :cardData="cardData" />
+    <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
   </Transition>
 </template>
 
