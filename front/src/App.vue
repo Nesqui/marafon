@@ -28,20 +28,21 @@ const INTERVAL_TIME = 12000
 setInterval(async () => {
   if (!isInterval.value) return
 
-  if (!isNextPage)
+  if (!isNextPage.value)
     currentPage.value = 0
-  else
-    await updateRunners()
+
+  await updateRunners()
 
 }, INTERVAL_TIME)
 
 const updateRunners = async () => {
   loading.value = true
   let res
+  
   if (!nextPageData.value) {
     res = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
-    query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
-  })
+      query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+    })
   } else {
     res = nextPageData.value
     nextPageData.value = null
@@ -50,11 +51,12 @@ const updateRunners = async () => {
   data.value = res.data.results
   isNextPage.value = !!res.data.next
 
-  api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
-    query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
-  })
-    .then((runnerRes) => { nextPageData.value = runnerRes })
-    .catch(() => { nextPageData.value = null })
+  if (isNextPage.value)
+    api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
+      query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+    })
+      .then((runnerRes) => { nextPageData.value = runnerRes })
+      .catch(() => { nextPageData.value = null })
   currentPage.value++
 
   nextTick(() => loading.value = false)
@@ -69,8 +71,6 @@ onMounted(async () => {
   })
   console.log("🚀 ~ gres:", gres)
   await updateRunners()
-
-
 
   isInterval.value = true
   nextTick(() => {
@@ -95,6 +95,7 @@ onMounted(async () => {
     </Transition>
     <div v-if="display === 'Desktop'" class="qr-code">
       <img src="/qr.png" />
+      <span>Следи за забегом с телефона</span>
     </div>
   </div>
 
@@ -123,6 +124,7 @@ onMounted(async () => {
   border-radius: 24px;
   background: #FFF;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+  flex-direction: column;
 }
 
 .cards {
