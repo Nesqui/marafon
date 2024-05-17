@@ -132,13 +132,15 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin-bottom: 24px;
 }
 
 .pagination-wrapper {
   display: flex;
   width: 100%;
   justify-content: center;
+  justify-self: flex-end;
+  position: fixed;
+  bottom: 17px;
 }
 
 @media (max-width: 1050px) {
@@ -152,10 +154,6 @@ onMounted(async () => {
   .pagination-wrapper {
     display: none
   }
-
-  .cards {
-    margin-bottom: 0;
-  }
 }
 
 @media (max-width: 450px) {
@@ -168,10 +166,6 @@ onMounted(async () => {
 
   .pagination-wrapper {
     display: none
-  }
-
-  .cards {
-    margin-bottom: 0;
   }
 }
 
