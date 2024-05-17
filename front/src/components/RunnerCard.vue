@@ -5,14 +5,14 @@ const props = defineProps({
   runner: {
     type: Object,
     required: true
-  },
+  }
 })
 
 </script>
 
 <template>
     <div class="card-wrapper">
-      <h3>{{ runner.id }}</h3>
+      <h3>{{ runner.participant.external_user_id }}</h3>
       <div class="stats">
         <div class="stats__item">
           <div class="stats_title">

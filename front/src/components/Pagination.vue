@@ -4,6 +4,7 @@ import { computed, defineProps } from 'vue';
 const props = defineProps(['page', 'pages'])
 const width = computed(() => {
     if (props.pages === 0) return '0%'
+    if (props.page === props.pages) return '100%'
     const result  = (props.page/props.pages * 100).toFixed(0)
     if (+result > 100) return '100%'
     return `${result}%`
@@ -12,8 +13,8 @@ const width = computed(() => {
 
 <template>
     <div class="pagination">
-        <div :class="{ active: page === 1 }" class="pagination-left"></div>
-        <div :class="{ active: page !== 1 && page !== pages }" class="pagination-center">
+        <div :class="{ active: page === 0 }" class="pagination-left"></div>
+        <div :class="{ active: page !== 0 && page !== pages }" class="pagination-center">
             <div class="bar"></div>
         </div>
         <div :class="{ active: page === pages }" class="pagination-right"></div>
@@ -25,6 +26,7 @@ const width = computed(() => {
     display: flex;
     gap: 6px;
     align-items: center;
+    color: red;
 
     .pagination-left,
     .pagination-right,
@@ -56,7 +58,7 @@ const width = computed(() => {
             border-radius: 10px;
             width: v-bind(width);
             height: 7px;
-            transition: all 1s ease-in-out;
+            transition: width 1s ease-in-out;
         }
     }
 }

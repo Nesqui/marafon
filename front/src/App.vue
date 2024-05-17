@@ -14,18 +14,18 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const filteredData = computed(() => data.value.filter(el => el.distance > 8884.3))
-const cardData = computed(() => filteredData.value.map(el => ({ distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
+const filteredData = computed(() => data.value.filter(el => el.distance > 0))
+const cardData = computed(() => filteredData.value.map(el => ({ participant: el.participant, distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
 const boot = ref(true)
-const PER_PAGE = 23
+const PER_PAGE = 3
 const currentPage = ref(0)
 const pages = ref(0)
 const nextPageData = ref(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
-const INTERVAL_TIME = 12000
+const INTERVAL_TIME = 3000
 
 setInterval(async () => {
   if (!isInterval.value || display.value !== `Desktop`) return
@@ -60,6 +60,7 @@ const updateRunners = async () => {
       .then((runnerRes) => { nextPageData.value = runnerRes })
       .catch(() => { nextPageData.value = null })
   currentPage.value++
+
   pages.value = Math.floor(res.data.count / PER_PAGE)
   nextTick(() => loading.value = false)
 }
@@ -92,7 +93,7 @@ onMounted(async () => {
     <h3>Нет данных о забеге</h3>
   </div>
   <div class="cards">
-    <RunnerCard v-for="(runner, index) in cardData" :key="runner.id" :runner="runner"
+    <RunnerCard v-for="(runner, index) in cardData" :key="runner.participant.external_user_id" :runner="runner"
       class="runner-card animate__animated animate__fadeIn" />
   </div>
   <div v-if="display === 'Desktop'" class="qr-code">
