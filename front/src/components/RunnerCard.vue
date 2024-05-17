@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
-
-const props = defineProps({
+defineProps({
   runner: {
     type: Object,
     required: true

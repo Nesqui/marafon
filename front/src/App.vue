@@ -1,8 +1,9 @@
 <script setup lang="ts">
+// @ts-nocheck
 import { onMounted, ref, computed, nextTick } from 'vue';
 import RunnerCard from './components/RunnerCard.vue'
 import Loader from './components/Loader.vue'
-import { Api, Display } from "./hooks/"
+import { Api, Display, ParticipantMetrics } from "./hooks/"
 import Pagination from "./components/Pagination.vue"
 
 const api = new Api()
@@ -14,18 +15,18 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const filteredData = computed(() => data.value.filter(el => el.distance > 0))
+const filteredData = computed(() => data.value.filter(el => el.distance >0))
 const cardData = computed(() => filteredData.value.map(el => ({ participant: el.participant, distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
 const boot = ref(true)
-const PER_PAGE = 3
+const PER_PAGE = 23
 const currentPage = ref(0)
 const pages = ref(0)
-const nextPageData = ref(null)
+const nextPageData = ref<ParticipantMetrics | null>(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
-const INTERVAL_TIME = 2000
+const INTERVAL_TIME = 12000
 
 setInterval(async () => {
   if (!isInterval.value || display.value !== `Desktop`) return
@@ -58,7 +59,7 @@ const updateRunners = async () => {
     api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
       query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
     })
-      .then((runnerRes) => { nextPageData.value = runnerRes })
+      .then((runnerRes) => { nextPageData.value = runnerRes as unknown as ParticipantMetrics })
       .catch(() => { nextPageData.value = null })
 
   pages.value = Math.floor(res.data.count / PER_PAGE)
@@ -93,7 +94,9 @@ onMounted(async () => {
     <h3>Нет данных о забеге</h3>
   </div>
   <div class="cards">
-    <RunnerCard v-for="(runner, index) in cardData" :key="runner.participant.external_user_id" :runner="runner"
+    <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
+      class="runner-card animate__animated animate__fadeIn" />
+      <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
       class="runner-card animate__animated animate__fadeIn" />
   </div>
   <div v-if="display === 'Desktop'" class="qr-code">
@@ -145,8 +148,8 @@ onMounted(async () => {
   }
 
   text-align: center;
-  left: 1560px;
-  top: 802px;
+  bottom: 48px;
+  right: 80px;
   position: fixed;
   display: flex;
   align-items: center;
