@@ -24,7 +24,7 @@ const pages = ref(0)
 const nextPageData = ref(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
-const INTERVAL_TIME = 12000
+const INTERVAL_TIME = 1200077
 
 setInterval(async () => {
   if (!isInterval.value) return
@@ -39,7 +39,7 @@ setInterval(async () => {
 const updateRunners = async () => {
   loading.value = true
   let res
-  
+
   if (!nextPageData.value) {
     res = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
       query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
@@ -90,6 +90,7 @@ onMounted(async () => {
   </div>
 
   <Loader v-if="boot" />
+
   <div v-else class="cards">
     <Transition name="slide-up">
       <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
@@ -116,7 +117,12 @@ onMounted(async () => {
 }
 
 .qr-code {
-  margin-left: auto;
+  img{
+    width: 162px;
+  }
+  left: 1560px;
+  top: 802px;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,6 +132,10 @@ onMounted(async () => {
   background: #FFF;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
   flex-direction: column;
+  color: #363636;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
 }
 
 .cards {
