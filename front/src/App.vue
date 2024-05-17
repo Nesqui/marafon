@@ -14,18 +14,18 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const filteredData = computed(() => data.value.filter(el => el.distance > 8884.3))
+const filteredData = computed(() => data.value.filter(el => el.distance > 0))
 const cardData = computed(() => filteredData.value.map(el => ({ distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
 const boot = ref(true)
-const PER_PAGE = 23
+const PER_PAGE = 3
 const currentPage = ref(0)
 const pages = ref(0)
 const nextPageData = ref(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
-const INTERVAL_TIME = 12000
+const INTERVAL_TIME = 2000
 
 setInterval(async () => {
   if (!isInterval.value || display.value !== `Desktop`) return
@@ -53,13 +53,15 @@ const updateRunners = async () => {
   data.value = res.data.results
   isNextPage.value = !!res.data.next
 
+  currentPage.value++
   if (isNextPage.value)
     api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
       query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
     })
       .then((runnerRes) => { nextPageData.value = runnerRes })
       .catch(() => { nextPageData.value = null })
-  currentPage.value++
+
+
   pages.value = Math.floor(res.data.count / PER_PAGE)
   nextTick(() => loading.value = false)
 }
@@ -140,6 +142,11 @@ onMounted(async () => {
     width: 162px;
   }
 
+  span {
+    width: 185px;
+  }
+
+  text-align: center;
   left: 1560px;
   top: 802px;
   position: fixed;
@@ -154,7 +161,7 @@ onMounted(async () => {
   0px 4px 16px 0px rgba(0, 0, 0, 0.06);
   flex-direction: column;
   color: #363636;
-  font-size: 14px;
+  font-size: 21px;
   font-weight: 500;
   line-height: 22px;
 }
