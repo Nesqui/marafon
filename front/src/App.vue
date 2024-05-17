@@ -140,7 +140,7 @@ onMounted(async () => {
 
 .qr-code {
   img {
-    width: 162px;
+    width: 140px;
   }
 
   span {
@@ -148,7 +148,7 @@ onMounted(async () => {
   }
 
   text-align: center;
-  bottom: 48px;
+  bottom: 62px;
   right: 80px;
   position: fixed;
   display: flex;
