@@ -24,10 +24,10 @@ const pages = ref(0)
 const nextPageData = ref(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
-const INTERVAL_TIME = 1200077
+const INTERVAL_TIME = 12000
 
 setInterval(async () => {
-  if (!isInterval.value) return
+  if (!isInterval.value || display.value !== `Desktop`) return
 
   if (!isNextPage.value)
     currentPage.value = 0
