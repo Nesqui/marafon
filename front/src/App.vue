@@ -66,6 +66,12 @@ onMounted(async () => {
   loading.value = true
   await updateRunners()
 
+
+  let gres = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
+    // query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+  })
+  console.log("🚀 ~ gres:", gres)
+
   isInterval.value = true
   nextTick(() => {
     loading.value = false
@@ -83,10 +89,15 @@ onMounted(async () => {
   </div>
 
   <Loader v-if="boot" />
-  <Transition name="slide-up">
-    <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
-  </Transition>
-  <Pagination :page="1" :pages="2" v-if="!boot"/>
+  <div v-else class="wrap">
+    <Transition name="slide-up">
+      <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
+    </Transition>
+    <div v-if="display === 'Desktop'" class="qr-code">
+      <img src="/qr.png" />
+    </div>
+  </div>
+  <Pagination :page="1" :pages="2" v-if="!boot" />
 </template>
 
 <style scoped lang="scss">
@@ -97,6 +108,24 @@ onMounted(async () => {
   color: #363853;
   margin-bottom: 32px;
   gap: 16px;
+}
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.qr-code {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  width: calc(280px - 32px);
+  border-radius: 24px;
+  background: #FFF;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 1050px) {
