@@ -89,15 +89,18 @@ onMounted(async () => {
   </div>
 
   <Loader v-if="boot" />
-  <div v-else class="wrap">
+  <div v-else class="cards">
     <Transition name="slide-up">
-      <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
-    </Transition>
+        <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
+      </Transition>
     <div v-if="display === 'Desktop'" class="qr-code">
       <img src="/qr.png" />
     </div>
   </div>
-  <Pagination :page="1" :pages="2" v-if="!boot" />
+
+  <div class="pagination-wrapper">
+    <Pagination :page="3" :pages="5" v-if="!boot"  />
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -107,12 +110,6 @@ onMounted(async () => {
   align-items: center;
   color: #363853;
   margin-bottom: 32px;
-  gap: 16px;
-}
-
-.wrap {
-  display: flex;
-  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -128,12 +125,33 @@ onMounted(async () => {
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
 }
 
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.pagination-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 @media (max-width: 1050px) {
   .top-menu {
     align-items: start;
     justify-content: unset;
     flex-direction: column-reverse;
     margin-bottom: 16px;
+  }
+
+  .pagination-wrapper {
+    display: none
+  }
+
+  .cards {
+    margin-bottom: 0;
   }
 }
 
@@ -143,6 +161,14 @@ onMounted(async () => {
     justify-content: unset;
     gap: 24px;
     margin-bottom: 24px;
+  }
+
+  .pagination-wrapper {
+    display: none
+  }
+
+  .cards {
+    margin-bottom: 0;
   }
 }
 
