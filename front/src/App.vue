@@ -83,7 +83,7 @@ onMounted(async () => {
 
 <template>
   <div class="top-menu">
-    <h1>Названия дашборда</h1>
+    <h1>Марафон</h1>
     <img v-if="display === 'Mobile'" src="/logos-mobile.svg" />
     <img v-else src="/logos.svg" />
   </div>
