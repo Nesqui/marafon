@@ -3,8 +3,9 @@ import { computed, defineProps } from 'vue';
 
 const props = defineProps(['page', 'pages'])
 const width = computed(() => {
+    if (props.pages === 0) return '0%'
     const result  = (props.page/props.pages * 100).toFixed(0)
-    if (+result > 100) return `100%`
+    if (+result > 100) return '100%'
     return `${result}%`
 })
 </script>

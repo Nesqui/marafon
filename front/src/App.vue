@@ -20,6 +20,7 @@ const loading = ref(false)
 const boot = ref(true)
 const PER_PAGE = 23
 const currentPage = ref(0)
+const pages = ref(0)
 const nextPageData = ref(null)
 const isNextPage = ref(false)
 const isInterval = ref(false)
@@ -56,7 +57,7 @@ const updateRunners = async () => {
     .then((runnerRes) => { nextPageData.value = runnerRes })
     .catch(() => { nextPageData.value = null })
   currentPage.value++
-
+  pages.value = Math.floor(res.data.count / PER_PAGE)
   nextTick(() => loading.value = false)
 }
 
@@ -99,7 +100,7 @@ onMounted(async () => {
   </div>
 
   <div class="pagination-wrapper">
-    <Pagination :page="3" :pages="5" v-if="!boot" />
+    <Pagination :page="currentPage" :pages="pages" v-if="!boot" />
   </div>
 </template>
 
