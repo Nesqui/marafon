@@ -1,4 +1,13 @@
-if (!import.meta.env.VITE_API_KEY) throw new Error('VITE_API_KEY should be set inside .env')
+/* eslint-disable */
+/* tslint:disable */
+/*
+ * ---------------------------------------------------------------
+ * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
+ * ##                                                           ##
+ * ## AUTHOR: acacode                                           ##
+ * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
+ * ---------------------------------------------------------------
+ */
 
 export interface Participant {
     /** ID */
@@ -82,56 +91,6 @@ export interface ParticipantMetrics {
     updated_at?: string;
 }
 
-export interface GetParticipantMetricsOnPoint {
-    /** ID */
-    id?: number;
-    participant?: Participant;
-    /** Emotional involvement */
-    emotional_involvement?: number | null;
-    /** Degree of rest */
-    degree_of_rest?: number | null;
-    /** Concentration */
-    concentration?: number | null;
-    /** Mental fatigue level */
-    mental_fatigue_level?: number | null;
-    /** Sport anger */
-    sport_anger?: number | null;
-    /**
-     * Created at
-     * @format date-time
-     */
-    created_at?: string;
-    /**
-     * Updated at
-     * @format date-time
-     */
-    updated_at?: string;
-}
-
-export interface GetParticipantMetricsRealtime {
-    /** ID */
-    id?: number;
-    participant?: Participant;
-    /** Heart rate */
-    heart_rate?: number | null;
-    /** Stress */
-    stress?: number | null;
-    /** Distance */
-    distance?: number | null;
-    /** Speed */
-    speed?: number | null;
-    /**
-     * Created at
-     * @format date-time
-     */
-    created_at?: string;
-    /**
-     * Updated at
-     * @format date-time
-     */
-    updated_at?: string;
-}
-
 export interface ParticipantUpdateMetrics {
     /** ID */
     id?: number;
@@ -149,8 +108,6 @@ export interface ParticipantUpdateMetrics {
     mental_fatigue_level?: number | null;
     /** Sport anger */
     sport_anger?: number | null;
-    /** Distance */
-    distance?: number | null;
     /** Speed */
     speed?: number | null;
     /**
@@ -219,9 +176,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
     private baseApiParams: RequestParams = {
         credentials: "same-origin",
-        headers: {
-            Authorization: `API_KEY ${import.meta.env.VITE_API_KEY}`
-        },
+        headers: {},
         redirect: "follow",
         referrerPolicy: "no-referrer",
     };
@@ -423,36 +378,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
                 ...params,
             }),
     };
-    getOnpointParticipantMetrics = {
+    getLatestParticipantMetrics = {
         /**
          * No description
          *
-         * @tags get-onpoint-participant-metrics
-         * @name GetOnpointParticipantMetricsList
-         * @request GET:/get-onpoint-participant-metrics/
+         * @tags get-latest-participant-metrics
+         * @name GetLatestParticipantMetricsList
+         * @request GET:/get-latest-participant-metrics/
          * @secure
          */
-        getOnpointParticipantMetricsList: (params: RequestParams = {}) =>
-            this.request<GetParticipantMetricsOnPoint, any>({
-                path: `/get-onpoint-participant-metrics/`,
-                method: "GET",
-                secure: true,
-                format: "json",
-                ...params,
-            }),
-    };
-    getRealtimeParticipantMetrics = {
-        /**
-         * No description
-         *
-         * @tags get-realtime-participant-metrics
-         * @name GetRealtimeParticipantMetricsList
-         * @request GET:/get-realtime-participant-metrics/
-         * @secure
-         */
-        getRealtimeParticipantMetricsList: (params: RequestParams = {}) =>
-            this.request<GetParticipantMetricsRealtime, any>({
-                path: `/get-realtime-participant-metrics/`,
+        getLatestParticipantMetricsList: (params: RequestParams = {}) =>
+            this.request<ParticipantMetrics, any>({
+                path: `/get-latest-participant-metrics/`,
                 method: "GET",
                 secure: true,
                 format: "json",
@@ -468,10 +405,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * @request GET:/participant-metrics/
          * @secure
          */
-        participantMetricsList: (params: RequestParams = {}) =>
-            this.request<ParticipantMetrics[], any>({
+        participantMetricsList: (
+            query?: {
+                /** Number of results to return per page. */
+                limit?: number;
+                /** The initial index from which to return the results. */
+                offset?: number;
+            },
+            params: RequestParams = {},
+        ) =>
+            this.request<
+                {
+                    count: number;
+                    /** @format uri */
+                    next?: string | null;
+                    /** @format uri */
+                    previous?: string | null;
+                    results: ParticipantMetrics[];
+                },
+                any
+            >({
                 path: `/participant-metrics/`,
                 method: "GET",
+                query: query,
                 secure: true,
                 format: "json",
                 ...params,
@@ -690,4 +646,3 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
             }),
     };
 }
-

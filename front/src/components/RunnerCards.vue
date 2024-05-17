@@ -4,7 +4,6 @@ import { PropType } from 'vue';
 import RunnerCard from './RunnerCard.vue'
 import { Display } from '../hooks';
 
-
 const props = defineProps({
   cardData: { required: true },
   display: { type: String as PropType<Display>, required: true },

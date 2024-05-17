@@ -3,6 +3,7 @@ import { onMounted, ref, computed, nextTick } from 'vue';
 import RunnerCards from './components/RunnerCards.vue'
 import Loader from './components/Loader.vue'
 import { Api, Display } from "./hooks/"
+import Pagination from "./components/Pagination.vue"
 
 const api = new Api()
 const width = ref(window.screen.width);
@@ -85,6 +86,7 @@ onMounted(async () => {
   <Transition name="slide-up">
     <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
   </Transition>
+  <Pagination v-if="!boot"/>
 </template>
 
 <style scoped lang="scss">
