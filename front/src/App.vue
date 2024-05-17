@@ -91,15 +91,15 @@ onMounted(async () => {
   <Loader v-if="boot" />
   <div v-else class="cards">
     <Transition name="slide-up">
-        <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
-      </Transition>
+      <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
+    </Transition>
     <div v-if="display === 'Desktop'" class="qr-code">
       <img src="/qr.png" />
     </div>
   </div>
 
   <div class="pagination-wrapper">
-    <Pagination :page="3" :pages="5" v-if="!boot"  />
+    <Pagination :page="3" :pages="5" v-if="!boot" />
   </div>
 </template>
 

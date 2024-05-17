@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
-defineProps(['page', 'pages'])
+const props = defineProps(['page', 'pages'])
+const width = computed(() => {
+    const result  = (props.page/props.pages * 100).toFixed(0)
+    if (+result > 100) return `100%`
+    return `${result}%`
+})
 </script>
 
 <template>
@@ -39,14 +44,19 @@ defineProps(['page', 'pages'])
         height: 7px;
     }
 
-    .active {
+    .active.pagination-left,
+    .active.pagination-right {
         background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
     }
 
-    .bar {
-        background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
-        border-radius: 10px;
-        width: 50%;
+    .active {
+        .bar {
+            background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
+            border-radius: 10px;
+            width: v-bind(width);
+            height: 7px;
+            transition: all 1s ease-in-out;
+        }
     }
 }
 </style>
