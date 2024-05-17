@@ -86,7 +86,7 @@ onMounted(async () => {
   <Transition name="slide-up">
     <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
   </Transition>
-  <Pagination v-if="!boot"/>
+  <Pagination :page="1" :pages="2" v-if="!boot"/>
 </template>
 
 <style scoped lang="scss">
