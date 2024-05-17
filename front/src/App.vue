@@ -14,7 +14,8 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const cardData = computed(() => data.value.map(el => ({ distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
+const filteredData = computed(() => data.value.filter(el => el.distance > 8884.3))
+const cardData = computed(() => filteredData.value.map(el => ({ distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
 const boot = ref(true)
@@ -87,7 +88,10 @@ onMounted(async () => {
 
   <Loader v-if="boot" />
 
-  <div v-else class="cards">
+  <div v-if="!cardData.length" class="empty-table">
+    <h3>Нет данных о забеге</h3>
+  </div>
+  <div class="cards">
     <Transition name="slide-up">
       <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
     </Transition>
@@ -112,10 +116,30 @@ onMounted(async () => {
   gap: 16px;
 }
 
+.empty-table {
+  height: 44vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  h3 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 52px;
+    padding-bottom: 12px;
+    background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 .qr-code {
-  img{
+  img {
     width: 162px;
   }
+
   left: 1560px;
   top: 802px;
   position: fixed;
@@ -126,7 +150,8 @@ onMounted(async () => {
   width: calc(280px - 32px);
   border-radius: 24px;
   background: #FFF;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04),
+  0px 4px 16px 0px rgba(0, 0, 0, 0.06);
   flex-direction: column;
   color: #363636;
   font-size: 14px;

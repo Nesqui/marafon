@@ -45,7 +45,7 @@ const spinnerStyle = computed(() => {
   display: flex;
   justify-content: center;
   position: fixed;
-  left: 50%;
+  left: 48.8%;
 }
 
 .v-spinner .v-clip {
