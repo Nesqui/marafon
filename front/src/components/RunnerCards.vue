@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { computed, onMounted, ref } from 'vue'
 import { PropType } from 'vue';
-import SberCard from './SberCard.vue'
+import RunnerCard from './RunnerCard.vue'
 import { Display } from '../hooks';
 
 
@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
   <div class="card-container">
-    <SberCard v-for="(item, index) in cardData" :key="index" :runner="item" />
+    <RunnerCard v-for="(item, index) in cardData" :key="index" :runner="item" />
     <div v-if="display === 'Desktop'" class="qr-code">
       <img src="/qr.png" />
     </div>
