@@ -67,10 +67,6 @@ onMounted(async () => {
   window.addEventListener('resize', updateSize);
 
   loading.value = true
-  let gres = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
-    query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
-  })
-  console.log("🚀 ~ gres:", gres)
   await updateRunners()
 
   isInterval.value = true
