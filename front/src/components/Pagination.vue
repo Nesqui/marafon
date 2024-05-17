@@ -1,16 +1,7 @@
-<script lang="ts">
+<script setup lang="ts">
 import { defineProps } from 'vue';
 
-const props = defineProps({
-    page: {
-        required: true,
-        type: Number
-    },
-    pages: {
-        required: true,
-        type: Number
-    }
-})
+defineProps(['page', 'pages'])
 </script>
 
 <template>
@@ -25,12 +16,36 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .pagination {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+
+    .pagination-left,
+    .pagination-right,
+    .pagination-center {
+        background: rgba(0, 0, 0, 0.16);
+    }
+
+    .pagination-center {
+        width: 50px;
+        height: 7px;
+        border-radius: 10px;
+    }
+
+    .pagination-left,
+    .pagination-right {
+        border-radius: 50%;
+        width: 7px;
+        height: 7px;
+    }
+
     .active {
-        background-color: green;
+        background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
     }
 
     .bar {
-        background-color: green;
+        background: linear-gradient(47deg, #06EB70 35.14%, #00B0E6 68%);
+        border-radius: 10px;
         width: 50%;
     }
 }

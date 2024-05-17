@@ -83,10 +83,15 @@ onMounted(async () => {
   </div>
 
   <Loader v-if="boot" />
-  <Transition name="slide-up">
-    <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
-  </Transition>
-  <Pagination :page="1" :pages="2" v-if="!boot"/>
+  <div class="cards">
+    <Transition name="slide-up">
+      <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
+    </Transition>
+  </div>
+  <div class="pagination-wrapper">
+    <Pagination :page="3" :pages="5" v-if="!boot" />
+  </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -99,12 +104,30 @@ onMounted(async () => {
   gap: 16px;
 }
 
+.cards {
+  margin-bottom: 24px;
+}
+
+.pagination-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 @media (max-width: 1050px) {
   .top-menu {
     align-items: start;
     justify-content: unset;
     flex-direction: column-reverse;
     margin-bottom: 16px;
+  }
+
+  .pagination-wrapper {
+    display: none
+  }
+
+  .cards {
+    margin-bottom: 0;
   }
 }
 
@@ -114,6 +137,14 @@ onMounted(async () => {
     justify-content: unset;
     gap: 24px;
     margin-bottom: 24px;
+  }
+
+  .pagination-wrapper {
+    display: none
+  }
+
+  .cards {
+    margin-bottom: 0;
   }
 }
 
