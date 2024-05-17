@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed, nextTick } from 'vue';
-import RunnerCards from './components/RunnerCards.vue'
+import RunnerCard from './components/RunnerCard.vue'
 import Loader from './components/Loader.vue'
 import { Api, Display } from "./hooks/"
 import Pagination from "./components/Pagination.vue"
@@ -39,7 +39,7 @@ setInterval(async () => {
 const updateRunners = async () => {
   loading.value = true
   let res
-  
+
   if (!nextPageData.value) {
     res = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
       query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
@@ -90,14 +90,12 @@ onMounted(async () => {
   </div>
 
   <Loader v-if="boot" />
-  <div v-else class="cards">
-    <Transition name="slide-up">
-      <RunnerCards :display="display" v-if="!loading" :cardData="cardData" />
-    </Transition>
-    <div v-if="display === 'Desktop'" class="qr-code">
-      <img src="/qr.png" />
-      <span>Следи за забегом с телефона</span>
-    </div>
+  <div class="cards">
+    <RunnerCard v-for="(runner, index) in cardData" :key="runner.id" :runner="runner" class="runner-card animate__animated animate__fadeIn" />
+  </div>
+  <div v-if="display === 'Desktop'" class="qr-code">
+    <img src="/qr.png" />
+    <span>Следи за забегом с телефона</span>
   </div>
 
   <div class="pagination-wrapper">
@@ -150,7 +148,9 @@ onMounted(async () => {
     flex-direction: column-reverse;
     margin-bottom: 16px;
   }
+}
 
+@media (max-width: 1700px) {
   .pagination-wrapper {
     display: none
   }
@@ -167,18 +167,5 @@ onMounted(async () => {
   .pagination-wrapper {
     display: none
   }
-}
-
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.65s ease-in;
-}
-
-.slide-up-enter-from {
-  opacity: 0;
-}
-
-.slide-up-leave-to {
-  opacity: 90;
 }
 </style>

@@ -11,47 +11,47 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="card-wrapper">
-    <h3>{{ runner.id }}</h3>
-    <div class="stats">
-      <div class="stats__item">
-        <div class="stats_title">
-          <img src="/pulse.svg" /><span>Пульс</span>
+    <div class="card-wrapper">
+      <h3>{{ runner.id }}</h3>
+      <div class="stats">
+        <div class="stats__item">
+          <div class="stats_title">
+            <img src="/pulse.svg" /><span>Пульс</span>
+          </div>
+          <div class="stats_value">
+            <span class="bold">{{ runner.heartRate.toFixed(1)
+              }}</span><span>уд/мин</span>
+          </div>
         </div>
-        <div class="stats_value">
-          <span class="bold">{{ runner.heartRate.toFixed(1)
-            }}</span><span>уд/мин</span>
+        <div class="stats__item">
+          <div class="stats_title">
+            <img src="/stress.svg" /><span>Стресс</span>
+          </div>
+          <div class="stats_value">
+            <span class="bold">{{ runner.stress.toFixed(2)
+              }}</span><span></span>
+          </div>
         </div>
-      </div>
-      <div class="stats__item">
-        <div class="stats_title">
-          <img src="/stress.svg" /><span>Стресс</span>
+        <div class="stats__item">
+          <div class="stats_title">
+            <img src="/speed.svg" /><span>Скорость</span>
+          </div>
+          <div class="stats_value">
+            <span class="bold">{{ runner.speed.toFixed(1)
+              }}</span><span>км/ч</span>
+          </div>
         </div>
-        <div class="stats_value">
-          <span class="bold">{{ runner.stress.toFixed(2)
-            }}</span><span></span>
-        </div>
-      </div>
-      <div class="stats__item">
-        <div class="stats_title">
-          <img src="/speed.svg" /><span>Скорость</span>
-        </div>
-        <div class="stats_value">
-          <span class="bold">{{ runner.speed.toFixed(1)
-            }}</span><span>км/ч</span>
-        </div>
-      </div>
-      <div class="stats__item">
-        <div class="stats_title">
-          <img src="/path.svg" /><span>Дистанция</span>
-        </div>
-        <div class="stats_value">
-          <span class="bold">{{ runner.distance.toFixed(1)
-            }}</span><span>км</span>
+        <div class="stats__item">
+          <div class="stats_title">
+            <img src="/path.svg" /><span>Дистанция</span>
+          </div>
+          <div class="stats_value">
+            <span class="bold">{{ runner.distance.toFixed(1)
+              }}</span><span>км</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped lang="scss">
