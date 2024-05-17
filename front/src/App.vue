@@ -89,7 +89,7 @@ onMounted(async () => {
     </Transition>
   </div>
   <div class="pagination-wrapper">
-    <Pagination :page="3" :pages="5" v-if="!boot" />
+    <Pagination :page="5" :pages="5" v-if="!boot" />
   </div>
 
 </template>
