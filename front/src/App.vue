@@ -15,12 +15,12 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const filteredData = computed(() => data.value.filter(el => el.distance >0))
+const filteredData = computed(() => data.value.filter(el => el.distance > 0))
 const cardData = computed(() => filteredData.value.map(el => ({ participant: el.participant, distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
 const boot = ref(true)
-const PER_PAGE = 23
+const PER_PAGE = display.value === `Desktop` ? 23 : 60
 const currentPage = ref(0)
 const pages = ref(0)
 const nextPageData = ref<ParticipantMetrics | null>(null)
@@ -96,7 +96,7 @@ onMounted(async () => {
   <div class="cards">
     <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
       class="runner-card animate__animated animate__fadeIn" />
-      <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
+    <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
       class="runner-card animate__animated animate__fadeIn" />
   </div>
   <div v-if="display === 'Desktop'" class="qr-code">
