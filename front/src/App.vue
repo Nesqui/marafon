@@ -15,7 +15,7 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const filteredData = computed(() => data.value.filter(el => el.distance > 0))
+const filteredData = computed(() => data.value.filter(el => el.distance > 15))
 const cardData = computed(() => filteredData.value.map(el => ({ participant: el.participant, distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
@@ -83,7 +83,7 @@ onMounted(async () => {
 
 <template>
   <div class="top-menu">
-    <h1>Марафон</h1>
+    <h1>Спорт и поддержка: вместе быстрее</h1>
     <img v-if="display === 'Mobile'" src="/logos-mobile.svg" />
     <img v-else src="/logos.svg" />
   </div>
@@ -96,12 +96,10 @@ onMounted(async () => {
   <div class="cards">
     <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
       class="runner-card animate__animated animate__fadeIn" />
-    <RunnerCard v-for="(runner) in cardData" :key="runner.participant.external_user_id" :runner="runner"
-      class="runner-card animate__animated animate__fadeIn" />
   </div>
   <div v-if="display === 'Desktop'" class="qr-code">
     <img src="/qr.png" />
-    <span>Следи за забегом с телефона</span>
+    <span>Сканируйте и следите за показателями на своём устройстве</span>
   </div>
 
   <div class="pagination-wrapper">
@@ -140,11 +138,12 @@ onMounted(async () => {
 
 .qr-code {
   img {
-    width: 140px;
+    width: 130px;
   }
 
   span {
     width: 185px;
+    font-size: 13px;
   }
 
   text-align: center;
@@ -154,7 +153,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 10px 16px;
   width: calc(280px - 32px);
   border-radius: 24px;
   background: #FFF;
