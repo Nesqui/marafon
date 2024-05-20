@@ -15,7 +15,7 @@ const updateSize = () => {
 
 const display = computed<Display>(() => width.value >= 1920 ? 'Desktop' : width.value >= 450 ? 'Tablet' : 'Mobile')
 const data = ref([])
-const filteredData = computed(() => data.value.filter(el => el.distance > 15))
+const filteredData = computed(() => data.value.filter(el => el.distance > 4.3))
 const cardData = computed(() => filteredData.value.map(el => ({ participant: el.participant, distance: el.distance, heartRate: el.heart_rate, id: el.id, speed: el.speed, stress: el.stress, })))
 
 const loading = ref(false)
@@ -138,14 +138,16 @@ onMounted(async () => {
 
 .qr-code {
   img {
-    width: 130px;
+    width: 110px;
+    height: 110px;
+    margin-bottom: 5px;
   }
-
+  
   span {
-    width: 185px;
+    width: 100%;
     font-size: 13px;
   }
-
+  
   text-align: center;
   bottom: 62px;
   right: 80px;
@@ -155,6 +157,7 @@ onMounted(async () => {
   justify-content: center;
   padding: 10px 16px;
   width: calc(280px - 32px);
+  height: calc(216px - 20px);
   border-radius: 24px;
   background: #FFF;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.04),
