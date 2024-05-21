@@ -169,7 +169,7 @@ export interface Participant {
   }
   
   export class HttpClient<SecurityDataType = unknown> {
-    public baseUrl: string = "https://sberzabeg.stage.qortex.ru/api";
+    public baseUrl: string = "https://fitnessmetrics.prod.qortex.ru/api";
     private securityData: SecurityDataType | null = null;
     private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
     private abortControllers = new Map<CancelToken, AbortController>();
@@ -340,7 +340,7 @@ export interface Participant {
    * @version v1
    * @license BSD License
    * @termsOfService https://www.google.com/policies/terms/
-   * @baseUrl https://sberzabeg.stage.qortex.ru/api
+   * @baseUrl https://fitnessmetrics.prod.qortex.ru/api
    * @contact <contact@snippets.local>
    *
    * Test description
