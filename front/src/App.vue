@@ -21,6 +21,11 @@ const cardData = computed(() => filteredData.value.map(el => ({ participant: el.
 const loading = ref(false)
 const boot = ref(true)
 const PER_PAGE = display.value === `Desktop` ? 23 : 60
+const offsetPaging = computed(() => {
+  if (display.value === 'Desktop') return currentPage.value * PER_PAGE
+  else return 0
+})
+
 const currentPage = ref(0)
 const pages = ref(0)
 const nextPageData = ref<ParticipantMetrics | null>(null)
@@ -29,7 +34,7 @@ const isInterval = ref(false)
 const INTERVAL_TIME = 12000
 
 setInterval(async () => {
-  if (!isInterval.value || display.value !== `Desktop`) return
+  if (!isInterval.value ) return
 
   if (!isNextPage.value)
     currentPage.value = 0
@@ -44,7 +49,7 @@ const updateRunners = async () => {
 
   if (!nextPageData.value) {
     res = await api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
-      query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+      query: { limit: PER_PAGE, offset: offsetPaging.value }
     })
   } else {
     res = nextPageData.value
@@ -57,7 +62,7 @@ const updateRunners = async () => {
   currentPage.value++
   if (isNextPage.value)
     api.getLatestParticipantMetrics.getLatestParticipantMetricsList({
-      query: { limit: PER_PAGE, offset: currentPage.value * PER_PAGE }
+      query: { limit: PER_PAGE, offset: offsetPaging.value }
     })
       .then((runnerRes) => { nextPageData.value = runnerRes as unknown as ParticipantMetrics })
       .catch(() => { nextPageData.value = null })
@@ -142,12 +147,12 @@ onMounted(async () => {
     height: 110px;
     margin-bottom: 5px;
   }
-  
+
   span {
     width: 100%;
     font-size: 13px;
   }
-  
+
   text-align: center;
   bottom: 62px;
   right: 80px;
