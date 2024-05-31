@@ -103,7 +103,7 @@ onMounted(async () => {
       class="runner-card animate__animated animate__fadeIn" />
   </div>
   <div v-if="display === 'Desktop'" class="qr-code">
-    <img src="/qr-test.svg" />
+    <img src="/qr.svg" />
     <span>Сканируйте и следите за показателями на своём устройстве</span>
   </div>
 
